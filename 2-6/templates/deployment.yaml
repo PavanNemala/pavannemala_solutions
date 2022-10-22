@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  replicas: {{ .Values.hpa.minReplicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: {{ .Values.image.name}}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerport }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containerport }}
+            initialDelaySeconds: {{ .Values.livenessProbe.livenessProbe }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds}}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds}}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containerport }}
+            initialDelaySeconds: {{ .Values.readinessProbe.livenessProbe }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds}}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds}}

@@ -1,0 +1,43 @@
+name: nginx-deployment
+namespace: nginx-deployment
+containerport: 80
+
+image:
+  name: nginx
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 80
+  targetport: 80
+  nodeport: 30013
+
+resources:
+  limits:
+    cpu: "1024m"
+    memory: "1Gi"
+  requests:
+    cpu: "1024m"
+    memory: "1Gi"
+
+hpa:
+  averagecUtilization: 50
+  averagemUtilization: 500Mi
+  totalrequests: 500
+  minReplicas: 1
+  maxReplicas: 3
+
+livenessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 90
+
+readinessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 90
+
+pdb:
+  minAvailable: 1
+  maxUnavailable: 0

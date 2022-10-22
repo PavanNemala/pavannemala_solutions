@@ -1,0 +1,7 @@
+- name: Nginx Container with lograte
+  hosts: localhost
+  become: yes
+  roles:
+    - docker
+    - nginx
+    - lograte

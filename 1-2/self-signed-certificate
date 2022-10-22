@@ -1,0 +1,18 @@
+Run the below commands to generate self signed certificate
+
+
+1. Install the openssl 
+   -  sudo apt install openssl
+
+2. Generate the certificate and key using below commmand. It ask for details , need to fill that
+   - openssl req -newkey rsa:4096 \
+            -x509 \
+            -sha256 \
+            -days 3650 \
+            -nodes \
+            -out pavan.crt \
+            -keyout pavan.key \
+            -subj "/C=SI/ST=Ljubljana/L=Ljubljana/O=Security/OU=IT Department/CN=localhost"
+
+3. View the certificate contenct using below commands
+   - openssl x509 -text -noout -in pavan.crt

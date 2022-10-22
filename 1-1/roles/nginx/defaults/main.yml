@@ -1,0 +1,12 @@
+---
+nginx_container_name: 'nginx'
+nginx_docker_tag: '1.12.2'
+nginx_static_html_directory: 'defaults'
+
+nginx_reverse_proxy_proxies: []
+
+nginx_exposed_ports:
+  - '8080'
+
+nginx_published_ports:
+  - '0.0.0.0:8080:8080'

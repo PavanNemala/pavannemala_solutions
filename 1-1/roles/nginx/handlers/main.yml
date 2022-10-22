@@ -1,0 +1,19 @@
+---
+- name: 'restart-docker-nginx'
+  docker_container:
+    image: "nginx:{{ nginx_docker_tag }}"
+    name: "{{ nginx_container_name }}"
+    ports: '{{ nginx_published_ports }}'
+    exposed_ports: '{{ nginx_exposed_ports }}'
+    state: 'stopped'
+    restart_policy: 'always'
+  notify: 'start-docker-nginx'
+
+- name: 'start-docker-nginx'
+  docker_container:
+    image: "nginx:{{ nginx_docker_tag }}"
+    name: "{{ nginx_container_name }}"
+    ports: '{{ nginx_published_ports }}'
+    exposed_ports: '{{ nginx_exposed_ports }}'
+    state: 'started'
+    restart_policy: 'always'

@@ -1,0 +1,12 @@
+---
+  logrotate_conf_dir: "/etc/logrotate.d/"
+  log_extension: "log"
+  logrotate_scripts:
+    - name: nginx
+      log_dir: '/var/lib/docker/containers/nginx'
+      log_extension: 'log'
+      options:
+        - size 100M
+        - missingok
+      scripts:
+          postrotate: "/bin/kill -USR1 `cat /run/nginx.pid 2>/dev/null` 2>/dev/null || true"

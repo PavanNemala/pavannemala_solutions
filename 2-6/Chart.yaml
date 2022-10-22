@@ -1,0 +1,4 @@
+apiVersion: v1
+description:  Making service type of Nodeport(assuming the service can be accessible with node and port exposed). HPA is configured with three paramters cpu,memory and http requests. PDB is configured to make service high availibility.
+name: NGINX
+version: 2.3.1
